@@ -1,4 +1,4 @@
-# uci-dh-data-cleaning
+# UCI Downhill Data Cleaning with VBA
 
 This script was used for cleaning and preparing data for my uci-dh-pridat url project, that tested the impact of rain on Scotish riders results.
 
