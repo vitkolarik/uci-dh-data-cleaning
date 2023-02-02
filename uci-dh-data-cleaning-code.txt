@@ -1,0 +1,82 @@
+' setting the race to "Lourdes 2022" with dry weather
+' could be flexible for different races with the inputbox enabled
+
+    race_year = 2022 'InputBox("Year: ")
+    race_race = "Lourdes" 'InputBox("Race: ")
+    race_weather = "Dry" 'InputBox("Weather: ")
+
+' add race sheet
+    Sheets.Add.Name = race_race & " " & race_year
+    Worksheets("Source Data").Cells.Copy
+    Worksheets(race_race & " " & race_year).Paste
+
+
+' delete teams and move racers data to one row
+    Worksheets(race_race & " " & race_year).Select
+    Range("A2").Activate
+
+    loop_count = 1
+    n_riders = WorksheetFunction.max(Range("A:A"))
+    
+    Do While loop_count < n_riders
+                              
+        ActiveCell.Offset(1, 0).Range("A1").Select
+        ActiveCell.Cut
+        ActiveCell.Offset(-1, 5).Range("A1").Select
+        ActiveSheet.Paste
+    
+        ActiveCell.Offset(2, -5).Range("A1").Select
+        Selection.Cut
+        ActiveCell.Offset(-2, 6).Range("A1").Select
+        ActiveSheet.Paste
+        ActiveCell.Offset(3, -6).Range("A1").Select
+    
+        If VarType(ActiveCell) = 8 Then
+            Selection.ClearContents
+            ActiveCell.Offset(1, 0).Range("A1").Select
+        End If
+    
+    loop_count = loop_count + 1
+
+    Loop
+
+
+' delete empty rows
+    last_used_row = Cells(Rows.Count, "A").End(xlUp).Row
+
+    For i = last_used_row To 1 Step -1
+        If Cells(i, "B").Value = "" Then
+            Rows(i).Delete
+        End If
+    Next i
+
+' delete columns
+    Columns("D").Delete
+    Columns("B").Delete
+
+' merge names into one cell
+    last_used_row = Cells(Rows.Count, "A").End(xlUp).Row
+    
+        For i = 2 To last_used_row
+            Range("D" & i) = Range("E" & i) & " " & Range("D" & i)
+        
+        Next
+    Columns("E").Delete
+
+' change names into proper case
+    [B:B] = [INDEX(PROPER(B:B),)]
+    [D:D] = [INDEX(PROPER(D:D),)]
+
+' rename columns
+    Range("A1").Value = "Result"
+    Range("B1").Value = "Nationality"
+    Range("C1").Value = "Points"
+    Range("D1").Value = "Rider"
+    Range("E1").Value = "Year"
+    Range("F1").Value = "Race"
+    Range("G1").Value = "Weather"
+
+' add data into columns
+    Range("E2:E" & last_used_row).Value = race_year
+    Range("F2:F" & last_used_row).Value = race_race
+    Range("G2:G" & last_used_row).Value = race_weather
