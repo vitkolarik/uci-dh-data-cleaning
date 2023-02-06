@@ -1,6 +1,6 @@
 # UCI Downhill Data Cleaning with VBA
 
-This script was used for cleaning and preparing data for my uci-dh-pridat url project, which tested the impact of rain on Scottish riders' results.
+This script was used for cleaning and preparing data for my "UCI Downsill analysis" project (https://rpubs.com/vit_kolarik/uci_dh_analysis), which tested the impact of rain on Scottish riders' results.
 
 ## Goal
 The data from the oficial UCI were unorganised and unfit to further analysis (as can be seen on sheet "Source Data"). Data about each rider were spread on multiple rows and the purpose of this script was to get them nicely on one row. 
